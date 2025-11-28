@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZS CLUB</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* RESET */
+*{
+    margin:0; padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Arial, sans-serif;
+}
+
+/* BODY GRADIENT */
+body{
+    background:linear-gradient(140deg,#05001a,#0a0033,#001a66);
+    background-size:400% 400%;
+    animation:bgMove 12s infinite alternate ease;
+    color:white;
+    -webkit-font-smoothing:antialiased;
+}
+@keyframes bgMove{
+    0%{background-position:0 0;}
+    100%{background-position:100% 100%;}
+}
+
+/* LOGIN PAGE */
+#loginPage{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+#loginBox{
+    width:95%;
+    max-width:380px;
+    padding:28px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 35px rgba(0,150,255,0.25);
+    animation:fadeIn .45s ease;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Site name on login */
+#siteNameLogin{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:6px;
+    font-weight:800;
+    color:#00eaff;
+    letter-spacing:1px;
+    text-shadow:0 0 18px rgba(0,234,255,0.15);
+}
+
+/* Small tagline under site name */
+#siteTag{
+    text-align:center;
+    font-size:12px;
+    margin-bottom:14px;
+    color:rgba(255,255,255,0.7);
+}
+
+/* Login heading */
+#loginBox h2{
+    margin-bottom:8px;
+    text-align:left;
+    font-size:18px;
+    font-weight:700;
+}
+
+.input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    color:white;
+    font-size:15px;
+    outline:none;
+}
+.input::placeholder{ color:rgba(255,255,255,0.6); }
+
+.loginBtn{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.18s;
+}
+.loginBtn:hover{
+    background:#3395ff;
+    box-shadow:0 0 18px #3395ff;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(.96);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* DASHBOARD */
+#dashboard{
+    display:none;
+    padding:18px;
+    min-height:100vh;
+}
+
+/* TOP BAR */
+.topBar{
+    background:rgba(255,255,255,0.06);
+    padding:12px;
+    border-radius:14px;
+    box-shadow:0 0 18px rgba(0,150,255,0.18);
+    margin-bottom:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+/* site brand on top-left */
+#siteBrand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+#siteBrand .logoDot{
+    width:34px; height:34px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#00eaff,#6a00ff);
+    box-shadow:0 0 12px rgba(0,234,255,0.18);
+}
+#siteBrand .brandText{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#00eaff;
+    text-shadow:0 0 8px rgba(0,234,255,0.08);
+}
+
+/* user & balance group centered (flexible) */
+.topCenter{
+    text-align:center;
+    min-width:180px;
+}
+.topCenter b{ display:block; font-size:15px; }
+.topCenter small{ display:block; font-size:12px; color:rgba(255,255,255,0.8); }
+
+/* ADD FUND moved to right */
+.addFundBtn{
+    background:#0d6efd;
+    padding:10px 18px;
+    border-radius:10px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}
+.addFundBtn:hover{
+    box-shadow:0 0 15px #0d6efd;
+    transform:translateY(-2px);
+}
+
+/* PRODUCT CARD */
+.prodList{
+    margin-top:6px;
+}
+.productCard{
+    display:flex;
+    gap:15px;
+    background:rgba(255,255,255,0.04);
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:14px;
+    box-shadow:0 0 12px rgba(0,150,255,0.06);
+    transition:.22s;
+    align-items:center;
+}
+.productCard:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 25px rgba(0,150,255,0.18);
+}
+
+.productCard img{
+    width:95px; height:95px;
+    border-radius:12px;
+    object-fit:cover;
+}
+
+/* BUY BUTTON */
+.buyBtn{
+    background:#26c281;
+    padding:8px 18px;
+    border-radius:10px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-weight:700;
+}
+.buyBtn:hover{
+    box-shadow:0 0 15px #26c281;
+}
+
+/* MODALS */
+.modalBG{
+    position:fixed;
+    left:0; top:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:20px;
+}
+
+.modalBox{
+    width:95%;
+    max-width:420px;
+    background:#0d0d0f;
+    padding:22px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 35px rgba(0,120,255,0.12);
+    animation:pop .25s ease;
+    border:1px solid rgba(255,255,255,0.03);
+}
+
+@keyframes pop{
+    from{transform:scale(.88); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+/* BTC ADDRESS BOX (FIXED INSIDE MODAL) */
+#btcAddress{
+    background:#111;
+    padding:12px;
+    border-radius:10px;
+    width:100%;
+    white-space:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+    margin:10px 0;
+    border:1px solid rgba(255,255,255,0.03);
+}
+#btcAddress::-webkit-scrollbar{ display:none; }
+
+.copyBtn{
+    background:#007bff;
+    color:white;
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+}
+.copyBtn:hover{
+    box-shadow:0 0 15px #007bff;
+}
+
+/* Minimum deposit red text */
+.minDeposit{
+    margin-top:12px;
+    font-weight:800;
+    color:#ff4d4d;
+    background:rgba(255,77,77,0.06);
+    padding:8px 12px;
+    border-radius:10px;
+    display:inline-block;
+    border:1px solid rgba(255,77,77,0.12);
+}
+
+/* smaller close button style */
+.closeBtn{
+    background:#e63946;
+    color:white;
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+    margin-left:8px;
+}
+.closeBtn:hover{
+    box-shadow:0 0 12px rgba(230,57,70,0.18);
+}
+
+/* responsive tweaks */
+@media (max-width:480px){
+    #siteNameLogin{ font-size:26px; }
+    #loginBox{ padding:18px; }
+    .topCenter{ min-width:120px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage">
+    <div id="loginBox">
+        <!-- Site name visible on login (ZS CLUB) -->
+        <div id="siteNameLogin">ZS CLUB</div>
+        <div id="siteTag">Premium Neon Store</div>
+
+        <h2>Login</h2>
+        <p>Username & Password</p>
+
+        <input id="username" class="input" placeholder="Username" autocomplete="username">
+        <input id="password" class="input" placeholder="Password" type="password" autocomplete="current-password">
+
+        <button class="loginBtn" onclick="login()">Login</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+    <div class="topBar">
+        <!-- Site brand left -->
+        <div id="siteBrand">
+            <div class="logoDot" aria-hidden="true"></div>
+            <div class="brandText">ZS CLUB</div>
+        </div>
+
+        <!-- Center: user & balance -->
+        <div class="topCenter">
+            <b id="showUser">Guest</b>
+            <small>Balance: <span id="balance">$0.00</span></small>
+        </div>
+
+        <!-- Add fund button right -->
+        <div style="display:flex; align-items:center;">
+            <button class="addFundBtn" onclick="openFund()">Add Fund</button>
+        </div>
+    </div>
+
+    <div id="prodContainer" class="prodList"></div>
+</div>
+
+<!-- ADD FUND MODAL -->
+<div class="modalBG" id="fundModal" role="dialog" aria-modal="true" aria-labelledby="fundTitle">
+    <div class="modalBox">
+        <h3 id="fundTitle">Add Fund (BTC)</h3>
+        <p>Send BTC to this address<br><b>Auto credit after network confirmation</b></p>
+
+        <!-- BTC address now scrollable & safe -->
+        <p id="btcAddress">
+            bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+        </p>
+
+        <!-- Minimum deposit in red as requested -->
+        <div class="minDeposit">Minimum deposit $20</div>
+
+        <div style="margin-top:14px;">
+            <button class="copyBtn" onclick="copyBTC()">Copy Address</button>
+            <button class="closeBtn" onclick="closeFund()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- BUY MODAL -->
+<div class="modalBG" id="buyModal" role="dialog" aria-modal="true" aria-labelledby="buyTitle">
+    <div class="modalBox">
+        <h3 id="buyTitle">Insufficient Balance</h3>
+        <p>Please add fund to continue</p>
+        <button class="closeBtn" onclick="closeBuy()">Close</button>
+    </div>
+</div>
+
+<script>
+function login(){
+    let u = username.value.trim();
+    let p = password.value.trim();
+
+    if(!u || !p){
+        alert("Enter username & password");
+        return;
+    }
+
+    document.getElementById("showUser").innerText = u;
+    document.getElementById("loginPage").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+}
+
+/* sample products */
+let products = [];
+for(let i=1;i<=100;i++){
+    products.push({
+        title:"CREDIT TRADITIONAL",
+        price:10,
+        img:"https://i.postimg.cc/Gm5ZRq3S/image-search-1764267137285.png"
+    });
+}
+
+/* features text uses line breaks */
+let featureText = `
+• 98% Live CC<br>
+• High Balance Guaranteed<br>
+• Checked Card<br>
+• 30 minutes Refund guarantee<br>
+• Credit Card Minimum Balance 100$ 
+`;
+
+/* render product cards */
+function renderProducts(){
+    let html="";
+    products.forEach(p=>{
+        html+=`
+        <div class='productCard'>
+            <img src='${p.img}' alt='${p.title}'>
+            <div style='width:100%'>
+                <div style='font-size:18px; font-weight:700'>${p.title}</div>
+                <div style='font-size:13px; margin:8px 0; color:rgba(255,255,255,0.85)'>${featureText}</div>
+
+                <div style='display:flex; justify-content:space-between; align-items:center; gap:12px;'>
+                    <span style='font-weight:800'>$${p.price}</span>
+                    <button class='buyBtn' onclick='buy()'>Buy</button>
+                </div>
+            </div>
+        </div>
+        `;
+    });
+    document.getElementById("prodContainer").innerHTML = html;
+}
+renderProducts();
+
+/* modal controls */
+function openFund(){
+    document.getElementById("fundModal").style.display="flex";
+}
+function closeFund(){
+    document.getElementById("fundModal").style.display="none";
+}
+
+function buy(){
+    document.getElementById("buyModal").style.display="flex";
+}
+function closeBuy(){
+    document.getElementById("buyModal").style.display="none";
+}
+
+function copyBTC(){
+    let a = document.getElementById("btcAddress").innerText;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(a).then(()=> alert("Address copied to clipboard!"));
+    } else {
+        // fallback
+        let ta = document.createElement('textarea');
+        ta.value = a;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); alert("Address copied to clipboard!"); }
+        catch(e){ alert("Copy failed. Please select and copy manually."); }
+        ta.remove();
+    }
+}
+
+/* close modals on background click */
+document.addEventListener('click', function(e){
+    if(e.target.classList.contains('modalBG')){
+        e.target.style.display='none';
+    }
+});
+</script>
+
+</body>
+</html>
